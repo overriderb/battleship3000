@@ -58,9 +58,9 @@ object MapValidator {
       verticalShip || horizontalShip
     }
 
-    def loop(lastDecker: Decker, deckers: List[Decker]): Boolean = deckers match {
+    def loop(prevDecker: Decker, deckers: List[Decker]): Boolean = deckers match {
       case List() => true
-      case x::xs => isPartOfOneShip(lastDecker.position, x.position) && loop(x, xs)
+      case x::xs => isPartOfOneShip(prevDecker.position, x.position) && loop(x, xs)
     }
 
     ships.forall(ship => loop(ship.deckers.head, ship.deckers.tail))
