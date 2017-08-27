@@ -86,7 +86,7 @@ class BattleStartupTest extends FlatSpec with Matchers {
     BattleStartup.validateMap(map) should be (true)
   }
 
-  it should "mark map as invalid when distance between two ships on map less then one cell" in {
+  it should "mark map as invalid when to ships have overlapping coordinates" in {
     val invalidOneDecker = Ship(List(Decker(Coordinate(7,5))))
     val ships = List(fourDecker, threeDecker1, threeDecker2, twoDecker1, twoDecker2, twoDecker3, oneDecker1, oneDecker2, oneDecker3, invalidOneDecker)
     val map: BattleMap = BattleMap(ships)
