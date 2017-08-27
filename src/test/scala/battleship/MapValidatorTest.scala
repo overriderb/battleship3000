@@ -94,6 +94,14 @@ class MapValidatorTest extends FlatSpec with Matchers {
     MapValidator.isValidMap(map) should be (false)
   }
 
+  it should "mark map as invalid when a ship has free space between deckers" in {
+    val invalidFourDecker = Ship(List(Decker(Coordinate(1,1)), Decker(Coordinate(1,2)), Decker(Coordinate(1,4)), Decker(Coordinate(1,5))))
+    val ships = List(invalidFourDecker, threeDecker1, threeDecker2, twoDecker1, twoDecker2, twoDecker3, oneDecker1, oneDecker2, oneDecker3, oneDecker4)
+    val map: BattleMap = BattleMap(ships)
+
+    MapValidator.isValidMap(map) should be (false)
+  }
+
   private val fourDecker = Ship(List(Decker(Coordinate(1,1)), Decker(Coordinate(1,2)), Decker(Coordinate(1,3)), Decker(Coordinate(1,4))))
   private val threeDecker1 = Ship(List(Decker(Coordinate(3,1)), Decker(Coordinate(3,2)), Decker(Coordinate(3,3))))
   private val threeDecker2 = Ship(List(Decker(Coordinate(3,5)), Decker(Coordinate(3,6)), Decker(Coordinate(3,7))))
