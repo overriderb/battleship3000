@@ -14,12 +14,12 @@ object MapValidator {
 
   private def isAllShipsInsideMap(ships: List[Ship]) = {
     ships.flatMap(_.deckers).forall(d => isCoordinateInsideMap(d.position, Rules.mapSize))
-  }
 
-  private def isCoordinateInsideMap(coordinate: Coordinate, size: Int): Boolean = {
-    val x = coordinate.horizontal
-    val y = coordinate.vertical
-    (x >= 1 && x <= size) && (y >= 1 && y <= size)
+    def isCoordinateInsideMap(coordinate: Coordinate, size: Int): Boolean = {
+      val x = coordinate.horizontal
+      val y = coordinate.vertical
+      (x >= 1 && x <= size) && (y >= 1 && y <= size)
+    }
   }
 
   private def isAllShipsOnMap(ships: List[Ship]): Boolean = {
@@ -42,11 +42,15 @@ object MapValidator {
         })
       })
     })
+
+    def isDistanceSufficientBetweenCoordinates(coordinate1: Coordinate, coordinate2: Coordinate): Boolean = {
+      val horizontalDistanceSufficient = Math.abs(coordinate1.horizontal - coordinate2.horizontal) >= 2
+      val verticalDistanceSufficient = Math.abs(coordinate1.vertical - coordinate2.vertical) >= 2
+      horizontalDistanceSufficient || verticalDistanceSufficient
+    }
   }
 
-  private def isDistanceSufficientBetweenCoordinates(coordinate1: Coordinate, coordinate2: Coordinate): Boolean = {
-    val horizontalDistanceSufficient = Math.abs(coordinate1.horizontal - coordinate2.horizontal) >= 2
-    val verticalDistanceSufficient = Math.abs(coordinate1.vertical - coordinate2.vertical) >= 2
-    horizontalDistanceSufficient || verticalDistanceSufficient
+  private def isAllShipsStraightShape(ships: List[Ship]): Boolean = {
+    ???
   }
 }
