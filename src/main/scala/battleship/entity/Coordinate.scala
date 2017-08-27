@@ -1,6 +1,6 @@
 package battleship.entity
 
-case class Coordinate(vertical: Int, horizontal: Char)
+case class Coordinate(horizontal: Int, vertical: Int)
 
 object VerticalPosition extends Enumeration {
   val one = Value("1")
