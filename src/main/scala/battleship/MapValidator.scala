@@ -1,15 +1,16 @@
 package battleship
 
-import battleship.entity.{BattleMap, Coordinate, Rules, Ship}
+import battleship.entity._
 
 /**
   * TODO: Add comment
   */
 object MapValidator {
+
   def isValidMap(map: BattleMap): Boolean = {
     val ships = map.ships
 
-    isAllShipsInsideMap(ships) && isAllShipsOnMap(ships) && isDistanceSufficientBetweenShips(ships)
+    isAllShipsInsideMap(ships) && isAllShipsOnMap(ships) && isDistanceSufficientBetweenShips(ships) && isAllShipsCorrectShape(ships)
   }
 
   private def isAllShipsInsideMap(ships: List[Ship]): Boolean = {
@@ -51,6 +52,17 @@ object MapValidator {
   }
 
   private def isAllShipsCorrectShape(ships: List[Ship]): Boolean = {
-    ???
+    def isPartOfOneShip(position1: Coordinate, position2: Coordinate) = {
+      val verticalShip = position1.horizontal == position2.horizontal && Math.abs(position1.vertical - position2.vertical) == 1
+      val horizontalShip = position1.vertical == position2.vertical && Math.abs(position1.horizontal - position2.horizontal) == 1
+      verticalShip || horizontalShip
+    }
+
+    def loop(lastDecker: Decker, deckers: List[Decker]): Boolean = deckers match {
+      case List() => true
+      case x::xs => isPartOfOneShip(lastDecker.position, x.position) && loop(x, xs)
+    }
+
+    ships.forall(ship => loop(ship.deckers.head, ship.deckers.tail))
   }
 }
