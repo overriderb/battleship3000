@@ -14,7 +14,7 @@ class BattleStartupTest extends FlatSpec with Matchers {
   it should "successfully check that all ships in field of the map" in {
     val map: BattleMap = validMap
 
-    BattleStartup.validateMap(map) should be (true)
+    BattleStartup.isValidMap(map) should be (true)
   }
 
   it should "mark map as invalid because of one ship out of field of the map" in {
@@ -22,26 +22,26 @@ class BattleStartupTest extends FlatSpec with Matchers {
     val ships = List(invalidFourDecker, threeDecker1, threeDecker2, twoDecker1, twoDecker2, twoDecker3, oneDecker1, oneDecker2, oneDecker3, oneDecker4)
     val map: BattleMap = BattleMap(ships)
 
-    BattleStartup.validateMap(map) should be (false)
+    BattleStartup.isValidMap(map) should be (false)
   }
 
   it should "successfully check that map contains only 4 one-decker, 3 two-decker, 2 three-decker, 1 four-decker ships" in {
     val map: BattleMap = validMap
 
-    BattleStartup.validateMap(map) should be (true)
+    BattleStartup.isValidMap(map) should be (true)
   }
 
   it should "mark map as invalid map with only 1 one-decker ship" in {
     val oneDecker = Ship(List(Decker(Coordinate(1,1))))
     val map: BattleMap = BattleMap(List(oneDecker))
 
-    BattleStartup.validateMap(map) should be (false)
+    BattleStartup.isValidMap(map) should be (false)
   }
 
   it should "mark map as invalid map without ships" in {
     val map: BattleMap = BattleMap(List())
 
-    BattleStartup.validateMap(map) should be (false)
+    BattleStartup.isValidMap(map) should be (false)
   }
 
   it should "mark map as invalid map with 2 four-decker ships" in {
@@ -49,13 +49,13 @@ class BattleStartupTest extends FlatSpec with Matchers {
     val ships = List(fourDecker, additionalFourDecker, threeDecker1, threeDecker2, twoDecker1, twoDecker2, twoDecker3, oneDecker1, oneDecker2, oneDecker3, oneDecker4)
     val map: BattleMap = BattleMap(ships)
 
-    BattleStartup.validateMap(map) should be (false)
+    BattleStartup.isValidMap(map) should be (false)
   }
 
   it should "successfully check that distance between all ships on map not less then one cell" in {
     val map: BattleMap = validMap
 
-    BattleStartup.validateMap(map) should be (true)
+    BattleStartup.isValidMap(map) should be (true)
   }
 
   it should "mark map as invalid when distance between two ships on map less then one cell" in {
@@ -63,13 +63,13 @@ class BattleStartupTest extends FlatSpec with Matchers {
     val ships = List(fourDecker, threeDecker1, threeDecker2, twoDecker1, twoDecker2, twoDecker3, oneDecker1, oneDecker2, oneDecker3, invalidOneDecker)
     val map: BattleMap = BattleMap(ships)
 
-    BattleStartup.validateMap(map) should be (false)
+    BattleStartup.isValidMap(map) should be (false)
   }
 
   it should "successfully check that all ships on map have straight shape" in {
     val map: BattleMap = validMap
 
-    BattleStartup.validateMap(map) should be (true)
+    BattleStartup.isValidMap(map) should be (true)
   }
 
   it should "mark map as invalid when at least one ship has not straight shape" in {
@@ -77,13 +77,13 @@ class BattleStartupTest extends FlatSpec with Matchers {
     val ships = List(invalidFourDecker, threeDecker1, threeDecker2, twoDecker1, twoDecker2, twoDecker3, oneDecker1, oneDecker2, oneDecker3, oneDecker4)
     val map: BattleMap = BattleMap(ships)
 
-    BattleStartup.validateMap(map) should be (false)
+    BattleStartup.isValidMap(map) should be (false)
   }
 
   it should "successfully check that no overlapping ships on the map" in {
     val map: BattleMap = validMap
 
-    BattleStartup.validateMap(map) should be (true)
+    BattleStartup.isValidMap(map) should be (true)
   }
 
   it should "mark map as invalid when to ships have overlapping coordinates" in {
@@ -91,7 +91,7 @@ class BattleStartupTest extends FlatSpec with Matchers {
     val ships = List(fourDecker, threeDecker1, threeDecker2, twoDecker1, twoDecker2, twoDecker3, oneDecker1, oneDecker2, oneDecker3, invalidOneDecker)
     val map: BattleMap = BattleMap(ships)
 
-    BattleStartup.validateMap(map) should be (false)
+    BattleStartup.isValidMap(map) should be (false)
   }
 
   private val fourDecker = Ship(List(Decker(Coordinate(1,1)), Decker(Coordinate(1,2)), Decker(Coordinate(1,3)), Decker(Coordinate(1,4))))
