@@ -58,11 +58,20 @@ object MapValidator {
       verticalShip || horizontalShip
     }
 
-    def loop(prevDecker: Decker, deckers: List[Decker]): Boolean = deckers match {
+    def isShipsIndissoluble(prevDecker: Decker, deckers: List[Decker]): Boolean = deckers match {
       case List() => true
-      case x::xs => isPartOfOneShip(prevDecker.position, x.position) && loop(x, xs)
+      case x::xs => isPartOfOneShip(prevDecker.position, x.position) && isShipsIndissoluble(x, xs)
     }
 
-    ships.forall(ship => loop(ship.deckers.head, ship.deckers.tail))
+    def isShipHasStraightShape(ship: Ship): Boolean = {
+      val firstDecker = ship.deckers.head
+      val horizontalPositionEqual = ship.deckers.forall(_.position.horizontal == firstDecker.position.horizontal)
+      val verticalPositionEqual = ship.deckers.forall(_.position.vertical == firstDecker.position.vertical)
+      horizontalPositionEqual || verticalPositionEqual
+    }
+
+    val shipsIndissoluble = ships.forall(ship => isShipsIndissoluble(ship.deckers.head, ship.deckers.tail))
+    val shipsHaveStraightShape = ships.forall(ship => isShipHasStraightShape(ship))
+    shipsIndissoluble && shipsHaveStraightShape
   }
 }

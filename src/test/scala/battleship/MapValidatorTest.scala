@@ -9,7 +9,7 @@ import org.scalatest._
   */
 class MapValidatorTest extends FlatSpec with Matchers {
 
-  behavior of "BattleStartupTest"
+  behavior of "Map Validator"
 
   it should "successfully check that all ships in field of the map" in {
     val map: BattleMap = validMap
