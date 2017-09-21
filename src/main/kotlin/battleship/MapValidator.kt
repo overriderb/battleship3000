@@ -68,13 +68,13 @@ object MapValidator {
 
         fun isShipHasStraightShape(ship: Ship): Boolean {
             val firstDecker = ship.deckers.first()
-            val horizontalPositionEqual = ship.deckers.all{ it.position.horizontal == firstDecker.position.horizontal }
-            val verticalPositionEqual = ship.deckers.all{ it.position.vertical == firstDecker.position.vertical }
+            val horizontalPositionEqual = ship.deckers.all { it.position.horizontal == firstDecker.position.horizontal }
+            val verticalPositionEqual = ship.deckers.all { it.position.vertical == firstDecker.position.vertical }
             return horizontalPositionEqual || verticalPositionEqual
         }
 
-        val shipsIndissoluble = ships.all{ isShipsIndissoluble(it.deckers.first(), it.deckers.drop(1))}
-        val shipsHaveStraightShape = ships.all{ isShipHasStraightShape(it) }
+        val shipsIndissoluble = ships.all { isShipsIndissoluble(it.deckers.first(), it.deckers.drop(1))}
+        val shipsHaveStraightShape = ships.all { isShipHasStraightShape(it) }
         return shipsIndissoluble && shipsHaveStraightShape
     }
 
