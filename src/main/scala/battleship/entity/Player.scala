@@ -1,3 +1,3 @@
 package battleship.entity
 
-case class Player(name: String, map: BattleMap)
+case class Player(name: String, var map: BattleMap)

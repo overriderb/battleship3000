@@ -3,7 +3,7 @@ package battleship
 import battleship.entity._
 
 /**
-  * TODO: Add comment
+  * Validates initial ships setup on a map before battle
   */
 object MapValidator {
 
