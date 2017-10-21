@@ -2,6 +2,8 @@ package battleship
 
 import battleship.entity.{Coordinate, _}
 
+import scala.io.StdIn
+
 object Game {
   def main(args: Array[String]): Unit = {
     val vasya = Player("Vasya", validMap)
@@ -9,12 +11,31 @@ object Game {
 
     val newBattle = Battle(vasya, petya)
     val rounds: List[Round] = newBattle.rounds
-    val r = rounds :+ Round(vasya, petya, Coordinate(1, 1))
-    println(r)
 
-    val isGameFinished = GameEngine.areAllShipsDestroyed(vasya.map.ships) || GameEngine.areAllShipsDestroyed(petya.map.ships)
-    println("Is game finished? " + (if (isGameFinished) "YES" else "NO"))
+    var attackingPlayer = vasya
+    var defendingPlayer = petya
+
+    while (!isGameFinished(attackingPlayer.map.ships, defendingPlayer.map.ships)) {
+      println("Next turn for " + attackingPlayer.name)
+      println("Input x: ")
+      val x = StdIn.readLine()
+      println("Input y: ")
+      val y = StdIn.readLine()
+      val hitTarget = Coordinate(x.toInt, y.toInt)
+      val round = GameEngine.shoot(vasya, petya, hitTarget)
+      val r = rounds :+ GameEngine.shoot(vasya, petya, hitTarget)
+      if (!round.successful) {
+        println("Miss target")
+        val exAttackingPlayer = attackingPlayer.copy()
+        attackingPlayer = defendingPlayer.copy()
+        defendingPlayer = exAttackingPlayer
+      } else {
+        println("Hit target")
+      }
+    }
   }
+
+  private def isGameFinished(ships1: List[Ship], ships2: List[Ship]) = GameEngine.areAllShipsDestroyed(ships1) || GameEngine.areAllShipsDestroyed(ships2)
 
   private val fourDecker = Ship(List(Decker(Coordinate(1,1)), Decker(Coordinate(1,2)), Decker(Coordinate(1,3)), Decker(Coordinate(1,4))))
   private val threeDecker1 = Ship(List(Decker(Coordinate(3,1)), Decker(Coordinate(3,2)), Decker(Coordinate(3,3))))

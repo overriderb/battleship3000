@@ -1,20 +1,20 @@
 package battleship
 
-import battleship.entity.{Coordinate, Decker, Player, Ship}
+import battleship.entity._
 
 /**
   * TODO: Add comment
   */
 object GameEngine {
 
-  def shoot(attackingPlayer: Player, defendingPlayer: Player, hitTarget: Coordinate): Boolean = {
+  def shoot(attackingPlayer: Player, defendingPlayer: Player, hitTarget: Coordinate): Round = {
     val maybeDecker: Option[Decker] = defendingPlayer.map.ships.flatMap(ship => ship.deckers).find(decker => decker.position == hitTarget)
 
     if (maybeDecker.isDefined) {
       maybeDecker.get.alive = false
-      true
+      Round(attackingPlayer, defendingPlayer, hitTarget, successful = true)
     } else {
-      false
+      Round(attackingPlayer, defendingPlayer, hitTarget, successful = false)
     }
   }
 
