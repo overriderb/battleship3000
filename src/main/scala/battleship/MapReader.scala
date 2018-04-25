@@ -11,7 +11,12 @@ object MapReader {
     val source = scala.io.Source.fromFile(path)
     val lines = try source.mkString.split("\n") finally source.close()
 
-    var matrix = lines.map(l => l.toCharArray.map(el => el.toString.toInt))
+    val matrix = lines.map(l => l.toCharArray.map(el => el.toString.toInt))
+    readMap(matrix)
+  }
+
+  private def readMap(inMatrix: Array[Array[Int]]): BattleMap = {
+    var matrix = inMatrix.clone()
     var ships = List[Ship]()
 
     do {
