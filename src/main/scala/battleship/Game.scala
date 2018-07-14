@@ -6,8 +6,10 @@ import scala.io.StdIn
 
 object Game {
   def main(args: Array[String]): Unit = {
-    val vasya = Player("Vasya", validMap)
-    val petya = Player("Petya", validMap)
+    val vasyaMap = MapReader.readMap("src/main/resources/vasya-battle-map.txt")
+    val petyaMap = MapReader.readMap("src/main/resources/petya-battle-map.txt")
+    val vasya = Player("Vasya", vasyaMap)
+    val petya = Player("Petya", petyaMap)
 
     val newBattle = Battle(vasya, petya)
     val rounds: List[Round] = newBattle.rounds
