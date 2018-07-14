@@ -62,6 +62,6 @@ object MapReader {
       matrix = result._2
     }
 
-    Tuple2(deckers.distinct, matrix)
+    (deckers.distinct, matrix)
   }
 }

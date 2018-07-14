@@ -11,7 +11,7 @@ object GameEngine {
     val maybeDecker: Option[Decker] = defendingPlayer.map.ships.flatMap(ship => ship.deckers).find(decker => decker.position == hitTarget)
 
     if (maybeDecker.isDefined) {
-      maybeDecker.get.alive = false
+//      maybeDecker.get.alive = false
       Round(attackingPlayer, defendingPlayer, hitTarget, successful = true)
     } else {
       Round(attackingPlayer, defendingPlayer, hitTarget, successful = false)
