@@ -1,3 +1,6 @@
 package battleship.entity
 
-case class Player(name: String, map: BattleMap)
+import monocle.macros.Lenses
+
+@Lenses("_")
+case class Player(name: String, battleMap: BattleMap)

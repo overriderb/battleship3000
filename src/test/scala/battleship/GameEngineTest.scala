@@ -14,9 +14,10 @@ class GameEngineTest extends FlatSpec with Matchers {
     val oneDecker = Ship(List(Decker(Coordinate(1,1))))
     val attackingPlayer = Player("Attacking", BattleMap(List(oneDecker)))
     val defendingPlayer = Player("Defending", BattleMap(List(oneDecker)))
+    val hitDefendingPlayer = Player("Defending", BattleMap(List(Ship(List(Decker(Coordinate(1,1), alive = false))))))
 
     val target = Coordinate(1, 1)
-    val expected = Round(attackingPlayer, defendingPlayer, target, successful = true)
+    val expected = Round(attackingPlayer, hitDefendingPlayer, target, successful = true)
 
     GameEngine.shoot(attackingPlayer, defendingPlayer, target) should be (expected)
   }

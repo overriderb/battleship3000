@@ -17,7 +17,7 @@ object Game {
     var attackingPlayer = vasya
     var defendingPlayer = petya
 
-    while (!isGameFinished(attackingPlayer.map.ships, defendingPlayer.map.ships)) {
+    while (!isGameFinished(attackingPlayer.battleMap.ships, defendingPlayer.battleMap.ships)) {
       println("Next turn for " + attackingPlayer.name)
       println("Input x: ")
       val x = StdIn.readLine()
